@@ -1,8 +1,10 @@
-package com.example.myapplication;
+package com.kevin.wilmingtonwishlist;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.kevin.wilmingtonwishlist.R;
 
 public class MainActivity extends AppCompatActivity {
 

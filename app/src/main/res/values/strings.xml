@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Wilmington Wish List</string>
+    <string name="user_label">Username:</string>
+    <string name="pass_label">Password:</string>
+    <string name="username">Enter username</string>
+    <string name="password">Enter password</string>
+    <string name="login">Log-in</string>
+    <string name="signup">Sign Up!</string>
+    <string name="logowords">Wilmington WishList</string>
+    <string name="logout">Log Out!</string>
 </resources>

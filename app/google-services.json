@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "221868155330",
+    "firebase_url": "https://wilmingtonwishlist.firebaseio.com",
+    "project_id": "wilmingtonwishlist",
+    "storage_bucket": "wilmingtonwishlist.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:221868155330:android:d2a368671575d3eb30365b",
+        "android_client_info": {
+          "package_name": "com.kevin.wilmingtonwishlist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "221868155330-483bb2jj1qumebe3vmdsttvj0rlu8esk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEMhe0boFmkG-B_TFVF8B3N_mtXa-snJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "221868155330-483bb2jj1qumebe3vmdsttvj0rlu8esk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

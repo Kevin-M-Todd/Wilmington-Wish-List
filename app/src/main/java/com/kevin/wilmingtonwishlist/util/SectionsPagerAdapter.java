@@ -13,23 +13,20 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     private final List<Fragment> mFragmentList = new ArrayList<>();
 
-    public SectionsPagerAdapter(FragmentManager fragmentManager) {
-        super(fragmentManager);
+    public SectionsPagerAdapter(FragmentManager fm) {
+        super(fm);
     }
 
-    public void addFragment(Fragment fragment) {
+    public void addFragment(Fragment fragment){
         mFragmentList.add(fragment);
     }
-
     @Override
     public Fragment getItem(int position) {
-
         return mFragmentList.get(position);
     }
 
     @Override
     public int getCount() {
-
         return mFragmentList.size();
     }
 }

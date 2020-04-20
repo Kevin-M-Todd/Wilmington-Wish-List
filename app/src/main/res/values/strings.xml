@@ -10,10 +10,20 @@
     <string name="logout">Log Out!</string>
     <string name="signin">Sign In!</string>
 
-    <string name="fragment_search">Search</string>
+    <string name="fragment_search">Home</string>
     <string name="fragment_watch_list">Watch List</string>
     <string name="fragment_post">Post</string>
+    <string name="fragment_view_post">Post</string>
     <string name="fragment_account">Account</string>
 
-    <string name="dummyText">This is a whole bunch of balogna.  I have put together this massive string so I can test a collapsable layout.  I really hope it works.  This class has been actually quite challenging for me so far but it is all good in the hood because I am hard at work with nothing else to do.  No money to made.  No fun to be had.  All I do now is code, eat, play banjo, take care of my baby duck (otherwise known as a duckling), and sleep.  Although sleep has been scarce lately which is quite concerning.  I probably need to be going on runs more ofter or working out at home to avoid getting fat.  My fiancee lives all the way in West Virginia and she is probably going to come see me but I am worried that I will have to ignore her and continue coding so I can graduate and be a good husband in the future.  The Youth Group at church is going swimmingly so far.  Numbers are up even though we have had to move to virtual youth group done over a zoom call.  Honestly it was tough but with good leaders backing me it has been great.  God is at work.  It is crazy how much I have typed and I am just now with this very sentence getting into scrolling range.  It is no biggy though because my mind easily wanders off into distant corners of my imagination.  I also have an average typing speed of 65 words per minute, often shorten by saying WPM.</string>
+    <string name="dialog_select_photo">SelectPhoto</string>
+
+    <string name="node_users">users</string>
+    <string name="node_posts">posts</string>
+    <string name="node_watch_list">watch_list</string>
+
+    <string name="field_post_id">post_id</string>
+
+    <string name="arg_post_id">arg_post_id</string>\
+
 </resources>

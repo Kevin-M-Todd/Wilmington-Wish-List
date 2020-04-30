@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "221868155330-qac3ee91dgp2m6j710ikpb9djagqnjm7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kevin.wilmingtonwishlist",
+            "certificate_hash": "eafffc6e561f0fe76bc0fe42689aa7cf34e1be78"
+          }
+        },
+        {
           "client_id": "221868155330-483bb2jj1qumebe3vmdsttvj0rlu8esk.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -13,7 +13,7 @@
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp"
         android:fontFamily="@font/amaranth"
         android:paddingLeft="10dp"
@@ -39,7 +39,7 @@
         android:layout_below="@+id/logo"/>
 
     <Button
-        android:id="@+id/button_choose_image"
+        android:id="@+id/revise_button_choose_image"
         android:layout_width="wrap_content"
         android:fontFamily="@font/amaranth"
         android:layout_height="wrap_content"
@@ -50,18 +50,18 @@
         android:layout_below="@+id/logo"/>
 
     <ImageView
-        android:id="@+id/image_view"
+        android:id="@+id/revise_image_view"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginStart="150dp"
-        android:layout_toRightOf="@+id/button_upload"
+        android:layout_marginLeft="35dp"
+        android:layout_toRightOf="@+id/revise_button_choose_image"
         android:layout_below="@+id/logo"/>
 
     <TextView
         android:id="@+id/text_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/amaranth"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
@@ -71,7 +71,7 @@
         android:layout_below="@+id/text_image"/>
 
     <EditText
-        android:id="@+id/edit_text_file_name"
+        android:id="@+id/revise_text_file_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/amaranth"
@@ -89,10 +89,10 @@
         android:text="Description:"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
-        android:layout_below="@+id/edit_text_file_name"/>
+        android:layout_below="@+id/revise_text_file_name"/>
 
     <EditText
-        android:id="@+id/edit_text_description"
+        android:id="@+id/revise_text_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/amaranth"
@@ -110,10 +110,10 @@
         android:text="Price:"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
-        android:layout_below="@+id/edit_text_description"/>
+        android:layout_below="@+id/revise_text_description"/>
 
     <EditText
-        android:id="@+id/edit_text_price"
+        android:id="@+id/revise_text_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/amaranth"
@@ -131,10 +131,10 @@
         android:text="Email:"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
-        android:layout_below="@+id/edit_text_price"/>
+        android:layout_below="@+id/revise_text_price"/>
 
     <EditText
-        android:id="@+id/edit_text_contact_email"
+        android:id="@+id/revise_text_contact_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/amaranth"
@@ -142,48 +142,24 @@
         android:hint="Enter contact email"/>
 
     <ProgressBar
-        android:id="@+id/progress_bar"
+        android:id="@+id/revise_progress_bar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button_upload"
+        android:layout_above="@+id/revise_button_upload"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="16dp"/>
 
     <Button
-        android:id="@+id/button_upload"
-        android:layout_width="wrap_content"
+        android:id="@+id/revise_button_upload"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/amaranth"
         android:textSize="16sp"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:text="Upload"/>
 
-    <Button
-        android:id="@+id/button_show_uploads"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/amaranth"
-        android:layout_alignBaseline="@+id/button_upload"
-        android:layout_alignBottom="@+id/button_upload"
-        android:layout_marginStart="25dp"
-        android:layout_toEndOf="@+id/button_upload"
-        android:text="Show Uploads"
-        android:textSize="16sp"
-        android:gravity="center"/>
-
-    <Button
-        android:id="@+id/button_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/amaranth"
-        android:layout_alignBaseline="@+id/button_show_uploads"
-        android:layout_alignBottom="@+id/button_show_uploads"
-        android:layout_marginStart="25dp"
-        android:layout_toEndOf="@+id/button_show_uploads"
-        android:text="Log Out!"
-        android:textSize="16sp"
-        android:gravity="center"/>
 
 
 </RelativeLayout>

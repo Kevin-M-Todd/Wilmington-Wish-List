@@ -16,6 +16,8 @@
     <string name="fragment_view_post">Post</string>
     <string name="fragment_account">Account</string>
 
+    <string name="node_elasticsearch">elasticsearch</string>
+
     <string name="dialog_select_photo">SelectPhoto</string>
 
     <string name="node_users">users</string>

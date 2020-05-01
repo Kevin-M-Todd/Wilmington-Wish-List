@@ -7,9 +7,12 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -70,6 +73,8 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
     private Button mReviseButtonChooseImage;
     private String mReviseImageUri;
 
+    //Search Stuff
+
 
     //Upload stuff
     private String mUser;
@@ -99,6 +104,8 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
         mRecyclerView = findViewById(R.id.recycleMe);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
 
         mProgressCircle = findViewById(R.id.progress_circle);
 
@@ -136,6 +143,35 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
                 mProgressCircle.setVisibility(View.INVISIBLE);
             }
         });
+
+        EditText editText = findViewById(R.id.edit_search);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                fiter(s.toString());
+            }
+        });
+    }
+
+    private void fiter(String text){
+        ArrayList<Upload> filteredList = new ArrayList<>();
+        for (Upload upload : mUploads) {
+            if (upload.getName().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(upload);
+            }
+        }
+
+        mAdapter.filterList(filteredList);
     }
 
     @Override
@@ -172,7 +208,7 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
     }
 
     @Override
-    public void onWhateverClick(final int position) {
+    public void onEditClick(final int position) {
         Upload selectedItem3 = mUploads.get(position);
         if (mUser.equals(selectedItem3.getmUser())) {
             Toast.makeText(this, "Whatever click at position: " + position, Toast.LENGTH_SHORT).show();

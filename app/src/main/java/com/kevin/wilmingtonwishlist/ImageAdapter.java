@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -89,10 +90,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             menu.setHeaderTitle("Select Action");
-            MenuItem doWhatever = menu.add(Menu.NONE, 1, 1, "Do Whatever");
+            MenuItem editPost = menu.add(Menu.NONE, 1, 1, "Edit Post");
             MenuItem delete = menu.add(Menu.NONE, 2, 2, "Delete");
 
-            doWhatever.setOnMenuItemClickListener(this);
+            editPost.setOnMenuItemClickListener(this);
             delete.setOnMenuItemClickListener(this);
         }
 
@@ -103,7 +104,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                 if (position != RecyclerView.NO_POSITION) {
                     switch (item.getItemId()) {
                         case 1:
-                            mListener.onWhateverClick(position);
+                            mListener.onEditClick(position);
                             return true;
                         case 2:
                             mListener.onDeleteClick(position);
@@ -118,7 +119,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     public interface OnItemClickListener {
         void onItemClick(int position);
 
-        void onWhateverClick(int position);
+        void onEditClick(int position);
 
         void onDeleteClick(int position);
     }
@@ -126,4 +127,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     public void setOnItemClickListener(OnItemClickListener listener){
         mListener = listener;
     }
+
+    public void filterList(ArrayList<Upload> filteredList) {
+        mUploads = filteredList;
+        notifyDataSetChanged();
+    }
+
 }

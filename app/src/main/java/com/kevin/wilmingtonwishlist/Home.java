@@ -20,6 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,6 +55,7 @@ public class Home extends AppCompatActivity {
 
     private Uri mImageUri;
 
+
     private StorageReference mStorageRef;
     private DatabaseReference mDataRef;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -76,6 +79,7 @@ public class Home extends AppCompatActivity {
         mContactemail = findViewById(R.id.edit_text_contact_email);
         mProgressBar = findViewById(R.id.progress_bar);
         mUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
 
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
         mDataRef = FirebaseDatabase.getInstance().getReference("uploads");

@@ -34,7 +34,7 @@
             android:layout_marginRight="16dp"
             android:lineSpacingExtra="4dp"
             android:text="Text View"
-            android:textSize="22sp"
+            android:textSize="27sp"
             android:fontFamily="@font/amaranth"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -66,6 +66,8 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:text="This is where the description goes"
+            android:textSize="22sp"
+            android:fontFamily="@font/amaranth"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/solo_view"/>
@@ -81,25 +83,37 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:text="1.00"
+            android:textSize="22sp"
+            android:fontFamily="@font/amaranth"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/solo_description"/>
 
         <TextView
-            android:lineSpacingExtra="8dp"
             android:id="@+id/solo_contact_email"
-            android:clickable="true"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:clickable="true"
+            android:fontFamily="@font/amaranth"
+            android:lineSpacingExtra="8dp"
             android:text="noemail@email.com"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/solo_price"/>
+            app:layout_constraintTop_toBottomOf="@+id/solo_price" />
+
+        <Button
+            android:id="@+id/solo_button_showuploads"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show Uploads"
+            app:layout_constraintTop_toBottomOf="@+id/solo_contact_email"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

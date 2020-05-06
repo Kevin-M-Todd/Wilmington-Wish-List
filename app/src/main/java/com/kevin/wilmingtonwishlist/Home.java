@@ -3,10 +3,14 @@ package com.kevin.wilmingtonwishlist;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,7 +24,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,28 +47,31 @@ import java.util.Objects;
 
 public class Home extends AppCompatActivity {
 
+    //Upload Stuff
     private static final int PICK_IMAGE_REQUEST = 1;
 
     private Button mButtonChooseImage;
     private Button mButtonUpload;
     private Button mButtonShowUploads;
+    private Button mButtonCancel;
     private EditText mEditTextFileName;
     private ImageView mImageView;
     private EditText mDescription;
     private EditText mPrice;
     private EditText mContactemail;
     private ProgressBar mProgressBar;
-    private Button mButtonLogout;
     private String mUser;
 
     private Uri mImageUri;
 
 
+    //Database Stuff
     private StorageReference mStorageRef;
     private DatabaseReference mDataRef;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     private StorageTask mUploadTask;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +81,11 @@ public class Home extends AppCompatActivity {
         mButtonChooseImage = findViewById(R.id.button_choose_image);
         mButtonUpload = findViewById(R.id.button_upload);
         mButtonShowUploads = findViewById(R.id.button_show_uploads);
-        mButtonLogout = findViewById(R.id.button_logout);
+        mButtonCancel = findViewById(R.id.button_cancel);
 
         mEditTextFileName = findViewById(R.id.edit_text_file_name);
         mImageView = findViewById(R.id.image_view);
+        Picasso.with(this).load(R.drawable.camera_icon).into(mImageView);
         mDescription = findViewById(R.id.edit_text_description);
         mPrice = findViewById(R.id.edit_text_price);
         mContactemail = findViewById(R.id.edit_text_contact_email);
@@ -84,7 +96,6 @@ public class Home extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
         mDataRef = FirebaseDatabase.getInstance().getReference("uploads");
 
-        setupFirebaseListener();
 
         mButtonChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,11 +107,28 @@ public class Home extends AppCompatActivity {
         mButtonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mUploadTask != null && mUploadTask.isInProgress()){
-                    Toast.makeText(Home.this, "Upload in progress", Toast.LENGTH_SHORT).show();
-                }else {
-                    uploadFile();
+                if (mEditTextFileName.getText().toString().isEmpty() ||
+                mDescription.getText().toString().isEmpty() ||
+                mPrice.getText().toString().isEmpty() ||
+                mContactemail.getText().toString().isEmpty()) {
+                    Toast.makeText(Home.this, "You must fill out all fields before uploading", Toast.LENGTH_SHORT).show();
                 }
+                else {
+                    if (mUploadTask != null && mUploadTask.isInProgress()){
+                        Toast.makeText(Home.this, "Upload in progress", Toast.LENGTH_SHORT).show();
+                    }else {
+                        uploadFile();
+                    }
+
+                }
+
+            }
+        });
+
+        mButtonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetFields();
             }
         });
 
@@ -109,13 +137,6 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
                 openImagesActivity();
 
-            }
-        });
-
-        mButtonLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
             }
         });
     }
@@ -202,34 +223,6 @@ public class Home extends AppCompatActivity {
     private void openImagesActivity(){
         Intent intent = new Intent(this, ImagesActivity.class);
         startActivity(intent);
-    }
-
-    private void setupFirebaseListener(){
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user != null){
-                }else {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-                }
-            }
-        };
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseAuth.getInstance().addAuthStateListener(mAuthStateListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthStateListener != null){
-            FirebaseAuth.getInstance().removeAuthStateListener(mAuthStateListener);
-        }
     }
 
     private void resetFields() {

@@ -2,63 +2,71 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="400dp"
+    android:layout_height="200dp"
     android:layout_margin="8dp"
     android:background="@android:color/darker_gray">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/design_default_color_secondary_variant"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/text_view_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Title"
-            android:textSize="20sp"
-            android:layout_gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/amaranth"
+            android:text="Title"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/text_view_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/amaranth"
-            android:text="Description"
-            android:textSize="15sp"
+            android:layout_below="@+id/text_view_title"
             android:layout_gravity="left"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/amaranth"
+            android:text="Description"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/text_view_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/amaranth"
-            android:text="Price"
-            android:textSize="15sp"
+            android:layout_below="@+id/text_view_description"
             android:layout_gravity="left"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/amaranth"
+            android:text="Price"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/text_view_contact_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/amaranth"
-            android:text="Contact email"
-            android:textSize="15sp"
+            android:layout_below="@+id/text_view_price"
             android:layout_gravity="left"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/amaranth"
+            android:text="Contact email"
+            android:textSize="15sp" />
 
         <ImageView
             android:id="@+id/image_view_upload"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"/>
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="125dp"
+            android:layout_marginTop="100dp"
+            android:layout_toRightOf="@+id/text_view_contact_email" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

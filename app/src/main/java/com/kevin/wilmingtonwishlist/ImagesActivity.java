@@ -45,6 +45,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.http.Url;
@@ -57,6 +58,7 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
     private TextView mSoloDescription;
     private TextView mSoloPrice;
     private TextView mSoloContactEmail;
+    private Button mSoloPosts;
 
     //Edit Post Stuff
     private ImageView mReviseImage;
@@ -73,24 +75,22 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
     private Button mReviseButtonChooseImage;
     private String mReviseImageUri;
 
-    //Search Stuff
+    //Logout Stuff
+    private Button mButtonLogout;
 
 
     //Upload stuff
     private String mUser;
+    private Button mUploadMe;
 
-
+    //RecyclerView Stuff
     private Uri mImageUri;
-
     private RecyclerView mRecyclerView;
     private ImageAdapter mAdapter;
-
     private ProgressBar mProgressCircle;
-
     private FirebaseStorage mStorage;
     private DatabaseReference mDataRef;
     private ValueEventListener mDBListener;
-
     private List<Upload> mUploads;
 
     @Override
@@ -105,20 +105,22 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //Logout Stuff
+        mButtonLogout = findViewById(R.id.button_logout);
 
-
+        //RecyclerView Stuff
         mProgressCircle = findViewById(R.id.progress_circle);
-
         mUploads = new ArrayList<>();
-
         mAdapter = new ImageAdapter(ImagesActivity.this, mUploads);
-
         mRecyclerView.setAdapter(mAdapter);
-
         mAdapter.setOnItemClickListener(ImagesActivity.this);
-
         mStorage = FirebaseStorage.getInstance();
         mDataRef = FirebaseDatabase.getInstance().getReference("uploads");
+
+        //Upload Stuff
+        mUploadMe = findViewById(R.id.button_create_post);
+
+        setupFirebaseListener();
 
         mDBListener = mDataRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -131,6 +133,8 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
                     upload.setKey(postSnapshot.getKey());
                     mUploads.add(upload);
                 }
+
+                Collections.reverse(mUploads);
 
                 mAdapter.notifyDataSetChanged();
 
@@ -161,6 +165,20 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
                 fiter(s.toString());
             }
         });
+
+        mButtonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+            }
+        });
+
+        mUploadMe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Home.class));
+            }
+        });
     }
 
     private void fiter(String text){
@@ -174,19 +192,26 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
         mAdapter.filterList(filteredList);
     }
 
+
+    //View Post Logic
     @Override
     public void onItemClick(int position) {
         setContentView(R.layout.layout_view_post);
 
+        EditText editText = findViewById(R.id.edit_search);
         mSoloImage = findViewById(R.id.solo_image_view);
         mSoloTitle = findViewById(R.id.solo_title);
         mSoloDescription = findViewById(R.id.solo_description);
         mSoloPrice = findViewById(R.id.solo_price);
         mSoloContactEmail = findViewById(R.id.solo_contact_email);
+        mSoloPosts = findViewById(R.id.solo_button_showuploads);
         Toast.makeText(this, "Normal click at position: " + position, Toast.LENGTH_SHORT).show();
+
+
         final Upload selectedItem2 = mUploads.get(position);
 
-        Picasso.with(this).load(selectedItem2.getImageUrl()).into(mSoloImage);
+
+        Picasso.with(this).load(selectedItem2.getImageUrl()).fit().into(mSoloImage);
         mSoloTitle.setText(selectedItem2.getName());
         mSoloDescription.setText(selectedItem2.getDescription());
         mSoloPrice.setText("$" + selectedItem2.getPrice());
@@ -199,14 +224,21 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
                 intent.setType("plain/text");
                 intent.putExtra(Intent.EXTRA_EMAIL, new String[] { selectedItem2.getContactEmail() });
                 intent.putExtra(Intent.EXTRA_SUBJECT, selectedItem2.getName());
-                intent.putExtra(Intent.EXTRA_TEXT, "mail body");
+                intent.putExtra(Intent.EXTRA_TEXT, "Hello!, I am interested in your " + selectedItem2.getName());
                 startActivity(Intent.createChooser(intent, ""));
             }
         });
 
+        mSoloPosts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ImagesActivity.class));
+            }
+        });
 
     }
 
+    //Edit Post Logic
     @Override
     public void onEditClick(final int position) {
         Upload selectedItem3 = mUploads.get(position);
@@ -253,6 +285,8 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
             Toast.makeText(this, "You cannot edit someone else's post!!", Toast.LENGTH_LONG).show();
         }
     }
+
+    //Delete Post Logic
     @Override
     public void onDeleteClick(int position) {
         Upload selectedItem = mUploads.get(position);
@@ -320,7 +354,7 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
                                 }
                             }, 500);
 
-                            //trying something new
+
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -357,6 +391,34 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
         mReviseDescription.setText("");
         mRevisePrice.setText("");
         mReviseContactEmail.setText("");
+    }
+
+    private void setupFirebaseListener(){
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user != null){
+                }else {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                }
+            }
+        };
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseAuth.getInstance().addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthStateListener != null){
+            FirebaseAuth.getInstance().removeAuthStateListener(mAuthStateListener);
+        }
     }
 
 }
